@@ -1,0 +1,112 @@
+﻿@model Waterworks.Models.View.Client.BasicCreateObjectViewModel;
+@using Waterworks.Models.View.Client;
+
+<div class="">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+            Dodaj nowy obiekt
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </h5>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-11">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <div class="col-xs-6">
+                            <label asp-for="SposobRozliczenia" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-2">
+                            <label asp-for="SposobRozliczenia" class="radio-inline">
+                                <input type="radio" asp-for="SposobRozliczenia" name="SposobRozliczenia" value="1" />
+                                Norma
+                            </label>
+                        </div>
+                        <div class="col-xs-4">
+                            <label asp-for="SposobRozliczenia" class="radio-inline">
+                                <input type="radio" asp-for="SposobRozliczenia" name="SposobRozliczenia" value="2" checked/>
+                                Wodomierz
+                            </label>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="form-group row">
+                        <div class="col-xs-6">
+                            <label asp-for="NumerKlienta" class="control-label"></label>
+                            <input asp-for="NumerKlienta" class="form-control" />
+                            <span asp-validation-for="NumerKlienta" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-6">
+                            <label asp-for="Geometria" class="control-label"></label>
+                            <input asp-for="Geometria" class="form-control" />
+                            <span asp-validation-for="Geometria" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-5">
+                            <label asp-for="Miejscowosc" class="control-label"></label>
+                            <input asp-for="Miejscowosc" class="form-control input-sm" />
+                            <span asp-validation-for="Miejscowosc" class="text-danger"></span>
+                        </div>
+                        <div class="col-xs-2">
+                            <label asp-for="NrDzialki" class="control-label"></label>
+                            <input asp-for="NrDzialki" class="form-control input-sm" />
+                            <span asp-validation-for="NrDzialki" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        <div class="col-xs-5">
+                            <label asp-for="Ulica" class="control-label"></label>
+                            <input asp-for="Ulica" class="form-control input-sm" />
+                            <span asp-validation-for="Ulica" class="text-danger"></span>
+                        </div>
+                        <div class="col-xs-2">
+                            <label asp-for="NrDomu" class="control-label"></label>
+                            <input asp-for="NrDomu" class="form-control input-sm" />
+                            <span asp-validation-for="NrDomu" class="text-danger"></span>
+                        </div>
+                        <div class="col-xs-2">
+                            <label asp-for="NrLokalu" class="control-label"></label>
+                            <input asp-for="NrLokalu" class="form-control input-sm" />
+                            <span asp-validation-for="NrLokalu" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                            <label asp-for="KodPocztowy" class="control-label"></label>
+                            <input asp-for="KodPocztowy" class="form-control input-sm" />
+                            <span asp-validation-for="KodPocztowy" class="text-danger"></span>
+                        </div>
+                        <div class="col-xs-4">
+                            <label asp-for="Poczta" class="control-label"></label>
+                            <input asp-for="Poczta" class="form-control input-sm" />
+                            <span asp-validation-for="Poczta" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" data-save="modal" />
+                    </div>
+                    @*<div>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Anuluj</button>
+        </div>*@
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

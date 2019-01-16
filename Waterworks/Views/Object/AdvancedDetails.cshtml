@@ -1,0 +1,139 @@
+﻿@model Waterworks.Models.View.Client.BasicCreateObjectViewModel
+
+@{
+    ViewData["Title"] = "AdvancedDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AdvancedDetails</h2>
+
+<div>
+    <h4>ObjectViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SposobRozliczenia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SposobRozliczenia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Geometria)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Geometria)
+        <dt>
+            @Html.DisplayNameFor(model => model.NumerKlienta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumerKlienta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Miejscowosc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Miejscowosc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KodPocztowy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KodPocztowy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NrDomu)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NrDomu)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ulica)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ulica)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NrLokalu)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NrLokalu)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NrDzialki)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NrDzialki)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Poczta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Poczta)
+        </dd>
+    </dl>
+</div>
+<div id="modal-placeholder"></div>
+@if (Model.NumerKlienta == null)
+{
+    <button type="button" class="btn btn-primary"
+            data-toggle="ajax-modal" data-target="#attach-client"
+            data-url="@Url.Action("AttachToClient","Object")">
+        Przypisz do klienta
+    </button>
+}
+else
+{
+    <a class="btn btn-primary" asp-action="DetachFromClient" asp-route-id="@Model.Id">Odepnij od klienta</a>
+}
+@*<button type="button" class="btn btn-primary"
+            data-url="@Url.Action("AttachaToClient","Object")">
+        Przypisz do klienta
+    </button>*@
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            var placeholderElement = $('#modal-placeholder');
+            $('button[data-toggle="ajax-modal"]').click(function (event) {
+                var url = $(this).data('url');
+                var id = '@Model.Id';
+                var parametersData = { id: id };
+                $.get(url, parametersData).done(function (data) {
+                    placeholderElement.html(data);
+                    placeholderElement.find('.modal').modal('show');
+                });
+            });
+
+            placeholderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var dataToSend = form.serialize();
+
+                $.post(actionUrl, dataToSend).done(function (data) {
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        var newBody = $('.modal-body', data);
+                        placeholderElement.find('.modal-body').replaceWith(newBody);
+                        var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                        if (isValid) {
+
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

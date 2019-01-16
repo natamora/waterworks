@@ -1,0 +1,295 @@
+﻿@model Waterworks.Models.View.Client.ClientCreateViewModel
+@using Waterworks.Models.View.Client;
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Dodaj kontrahenta</h3>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-xs-3">
+                    <label asp-for="NIP" class="control-label"></label>
+                    <input asp-for="NIP" class="form-control input-sm" />
+                    <span asp-validation-for="NIP" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="REGON" class="control-label"></label>
+                    <input asp-for="REGON" class="form-control input-sm" />
+                    <span asp-validation-for="REGON" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="KRS" class="control-label"></label>
+                    <input asp-for="KRS" class="form-control input-sm" />
+                    <span asp-validation-for="KRS" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="PESEL" class="control-label"></label>
+                    <input asp-for="PESEL" class="form-control input-sm" />
+                    <span asp-validation-for="PESEL" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-xs-3">
+                    <label asp-for="Imie" class="control-label"></label>
+                    <input asp-for="Imie" class="form-control input-sm" />
+                    <span asp-validation-for="Imie" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="Nazwisko" class="control-label"></label>
+                    <input asp-for="Nazwisko" class="form-control input-sm" />
+                    <span asp-validation-for="Nazwisko" class="text-danger"></span>
+                </div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-4">
+                    <label asp-for="RodzajKlientaId" class="control-label"></label>
+                    <select class="form-control input-sm" asp-for="RodzajKlientaId" asp-items="Html.GetEnumSelectList<ContractorType>()"></select>
+                    <span asp-validation-for="RodzajKlientaId" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-3">
+                    <label asp-for="Miejscowosc" class="control-label"></label>
+                    <input asp-for="Miejscowosc" class="form-control input-sm" />
+                    <span asp-validation-for="Miejscowosc" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <label asp-for="Ulica" class="control-label"></label>
+                    <input asp-for="Ulica" class="form-control input-sm" />
+                    <span asp-validation-for="Ulica" class="text-danger"></span>
+                </div>
+                <div class="col-xs-1">
+                    <label asp-for="NrDomu" class="control-label"></label>
+                    <input asp-for="NrDomu" class="form-control input-sm" />
+                    <span asp-validation-for="NrDomu" class="text-danger"></span>
+                </div>
+                <div class="col-xs-1">
+                    <label asp-for="NrLokalu" class="control-label"></label>
+                    <input asp-for="NrLokalu" class="form-control input-sm" />
+                    <span asp-validation-for="NrLokalu" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-2">
+                    <label asp-for="KodPocztowy" class="control-label"></label>
+                    <input asp-for="KodPocztowy" class="form-control input-sm" />
+                    <span asp-validation-for="KodPocztowy" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="Poczta" class="control-label"></label>
+                    <input asp-for="Poczta" class="form-control input-sm" />
+                    <span asp-validation-for="Poczta" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-xs-3">
+                    <label asp-for="Telefon" class="control-label"></label>
+                    <input asp-for="Telefon" class="form-control input-sm" />
+                    <span asp-validation-for="Telefon" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="DodatkowyTelefon" class="control-label"></label>
+                    <input asp-for="DodatkowyTelefon" class="form-control input-sm" />
+                    <span asp-validation-for="DodatkowyTelefon" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-3">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control input-sm" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-xs-3">
+                    <label asp-for="DodatkowyEmail" class="control-label"></label>
+                    <input asp-for="DodatkowyEmail" class="form-control input-sm" />
+                    <span asp-validation-for="DodatkowyEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="correspondence_address_checkbox">
+                <label class="custom-control-label">Adres do korespondencji</label>
+            </div>
+            <div class="hidden" id="correspondence_address_form">
+                <hr />
+                <div class="form-group row">
+                    <div class="col-xs-3">
+                        <label asp-for="CorrespondeceAddress.Miejscowosc" class="control-label"></label>
+                        <input asp-for="CorrespondeceAddress.Miejscowosc" class="form-control input-sm" />
+                        <span asp-validation-for="CorrespondeceAddress.Miejscowosc" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label asp-for="CorrespondeceAddress.Ulica" class="control-label"></label>
+                        <input asp-for="CorrespondeceAddress.Ulica" class="form-control input-sm" />
+                        <span asp-validation-for="CorrespondeceAddress.Ulica" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-1">
+                        <label asp-for="CorrespondeceAddress.NrDomu" class="control-label"></label>
+                        <input asp-for="CorrespondeceAddress.NrDomu" class="form-control input-sm" />
+                        <span asp-validation-for="CorrespondeceAddress.NrDomu" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-1">
+                        <label asp-for="CorrespondeceAddress.NrLokalu" class="control-label"></label>
+                        <input asp-for="CorrespondeceAddress.NrLokalu" class="form-control input-sm" />
+                        <span asp-validation-for="CorrespondeceAddress.NrLokalu" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <label asp-for="CorrespondeceAddress.KodPocztowy" class="control-label"></label>
+                        <input asp-for="CorrespondeceAddress.KodPocztowy" class="form-control input-sm" />
+                        <span asp-validation-for="CorrespondeceAddress.KodPocztowy" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <label asp-for="CorrespondeceAddress.Poczta" class="control-label"></label>
+                        <input asp-for="CorrespondeceAddress.Poczta" class="form-control input-sm" />
+                        <span asp-validation-for="CorrespondeceAddress.Poczta" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="active_receiver_checkbox">
+                <label class="custom-control-label">Aktywny odbiorca</label>
+            </div>
+            <div class="hidden" id="active_receiver_form">
+                <hr />
+                <div class="form-group row">
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Imie" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Imie" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Imie" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Nazwisko" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Nazwisko" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Nazwisko" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-2"></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Miejscowosc" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Miejscowosc" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Miejscowosc" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label asp-for="ActiveReceiver.Ulica" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Ulica" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Ulica" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-1">
+                        <label asp-for="ActiveReceiver.NrDomu" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.NrDomu" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.NrDomu" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-1">
+                        <label asp-for="ActiveReceiver.NrLokalu" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.NrLokalu" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.NrLokalu" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <label asp-for="ActiveReceiver.KodPocztowy" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.KodPocztowy" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.KodPocztowy" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Poczta" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Poczta" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Poczta" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row">
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Telefon" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Telefon" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Telefon" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Telefon2" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Telefon2" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Telefon2" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Email" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Email" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <label asp-for="ActiveReceiver.Email2" class="control-label"></label>
+                        <input asp-for="ActiveReceiver.Email2" class="form-control input-sm" />
+                        <span asp-validation-for="ActiveReceiver.Email2" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Wróć do listy</a>
+</div>
+<div id="print"> </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        
+        $(document).ready(function () {
+            var active_receiver_checked = false;
+            var active_receiver = $('#active_receiver_checkbox');
+            var active_receiver_to_hide = $('#active_receiver_form');
+
+            active_receiver.change(function () { //when the rating changes
+                if (active_receiver_checked == false) {
+                    active_receiver_to_hide.removeClass('hidden');
+                    active_receiver_checked = true;
+                }
+                else {
+                    active_receiver_to_hide.addClass('hidden');
+                    active_receiver_checked = false;
+                } 
+            });
+
+            var correspondence_address_checked = false;
+            var correspondence_address = $('#correspondence_address_checkbox');
+            var correspondence_address_to_hide = $('#correspondence_address_form');
+
+            correspondence_address.change(function () { //when the rating changes
+                if (correspondence_address_checked == false) {
+                    correspondence_address_to_hide.removeClass('hidden');
+                    correspondence_address_checked = true;
+                }
+                else {
+                    correspondence_address_to_hide.addClass('hidden');
+                    correspondence_address_checked = false;
+                }
+            });
+            
+        });
+    </script>
+}

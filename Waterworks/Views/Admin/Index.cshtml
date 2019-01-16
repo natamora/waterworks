@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Panel admina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Panel admina</h2>
+<h4>Tylko admin może przeglądać tę stronę!</h4>
+
+<div>
+    <hr />
+    <div class="row">
+        <a class="btn btn-primary" asp-area="" asp-controller="PriceList" asp-action="WaterPriceList">Cenniki woda</a>
+        <a class="btn btn-primary" asp-area="" asp-controller="PriceList" asp-action="SewagePriceList">Cenniki ścieki</a>
+        <a class="btn btn-primary" asp-area="" asp-controller="Subscription" asp-action="WaterPriceList">Cenniki abonament - woda</a>
+        <a class="btn btn-primary" asp-area="" asp-controller="Subscription" asp-action="SewagePriceList">Cenniki abonament - ścieki</a>
+    </div>
+</div>

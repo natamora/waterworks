@@ -1,0 +1,75 @@
+﻿@model Waterworks.Models.View.Client.BasicCreateObjectViewModel;
+@using Waterworks.Models.View.Client;
+
+<div class="">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+            Dane obiektu
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </h5>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+                Formuła rozliczeń
+            </dt>
+            <dd>
+                Wodomierz
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Miejscowosc)
+            </dt>
+            <dd>
+                Kraków
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.KodPocztowy)
+            </dt>
+            <dd>
+                12-345
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Poczta)
+            </dt>
+            <dd>
+                Kraków
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ulica)
+            </dt>
+            <dd>
+                Długa
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NrDomu)
+            </dt>
+            <dd>
+                12
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NrLokalu)
+            </dt>
+            <dd>
+                1
+            </dd>
+        </dl>
+        <hr />
+        <div class="row"> <h5>Wodomierze</h5> </div>
+        <div class="row"> <h5>Klasyfikatory</h5> </div>
+        <div class="row">
+            <h5>Akcje</h5>
+            <a class="btn btn-primary" href="#" role="button">Podepnij wodomierz</a>
+            <a class="btn btn-primary" href="#" role="button">Dodaj kontrahenta</a>
+            <a class="btn btn-primary" href="#" role="button">Zmień formułę rozliczeń</a>
+            <a class="btn btn-primary" href="#" role="button">Dodaj klasyfikatory</a>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

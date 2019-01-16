@@ -1,0 +1,49 @@
+﻿
+@*<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" class="nav_link" data_id="1" href="#home">Home</a></li>
+        <li><a data-toggle="tab" class="nav_link" data_id="2" href="#menu1">Menu 1</a></li>
+        <li><a data-toggle="tab" class="nav_link" data_id="3" href="#menu2">Menu 2</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div id="ProductsDiv1">
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <div id="ProductsDiv2">
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <div id="ProductsDiv3">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+    $(function () {
+        $(".nav_link").click(function () {
+            //Custom attribute data_id is used to store the ID
+            //Get the ID
+            var id = $(this).attr("data_id");
+            $.ajax({
+                url: '@Url.Action("DisplayEmployees", "Object")',
+                type: "post",
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                data: { id: id }, //add parameter
+                success: function (data) {
+                    //success
+                    $('#ProductsDiv'+id).html(data); //populate the tab content.
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+    });
+    </script>
+}*@

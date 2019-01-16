@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Waterworks.Models.View.PriceList.SubscriptionPriceViewModel>
+
+@{
+    ViewData["Title"] = "WaterSubscriptionPriceList";
+}
+
+<h2> Opłaty abonamentowe za wodę</h2>
+
+<p>
+    <a asp-action="WaterPriceCreate">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OkresRozliczeniowy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oplata)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RodzajKlienta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RodzajKlientaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazwaCennika)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypCennika)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OkresRozliczeniowy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oplata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RodzajKlienta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RodzajKlientaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazwaCennika)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypCennika)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
