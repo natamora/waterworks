@@ -42,7 +42,7 @@ namespace Waterworks.Controllers.Admin
                 };
                 list.Add(tempObject);
             }
-            return View("~/Views/PriceList/Water/List.cshtml", list);
+            return PartialView("~/Views/PriceList/Water/_List.cshtml", list);
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace Waterworks.Controllers.Admin
             dbContext.CennikWoda.Add(item);
             dbContext.SaveChanges();
 
-            return RedirectToAction( "WaterPriceList", "PriceList");
+            return RedirectToAction("Admin", "Index");
         }
 
         public IActionResult SewagePriceList()
@@ -93,7 +93,7 @@ namespace Waterworks.Controllers.Admin
                 };
                 list.Add(tempObject);
             }
-            return View("~/Views/PriceList/Sewage/List.cshtml", list);
+            return PartialView("~/Views/PriceList/Sewage/_List.cshtml", list);
         }
 
         [HttpGet]
@@ -118,7 +118,7 @@ namespace Waterworks.Controllers.Admin
             dbContext.CennikScieki.Add(item);
             dbContext.SaveChanges();
 
-            return RedirectToAction("SewagePriceList", "PriceList");
+            return RedirectToAction("Admin", "Index");
         }
     }
 }

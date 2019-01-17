@@ -26,29 +26,29 @@ namespace Waterworks.Models.View.Client
         public ContractorType RodzajKlientaId { get; set; }
 
         [Required(ErrorMessage = @"Pole jest wymagane")]
-        [Display(Name = "Imię*")]
+        [Display(Name = "Imię")]
         public string Imie { get; set; }
-        [Display(Name = "Nazwisko*")]
+        [Display(Name = "Nazwisko")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string Nazwisko { get; set; }
-        [Display(Name = "Miejscowość*")]
+        [Display(Name = "Miejscowość")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string Miejscowosc { get; set; }
 
         [DataType(DataType.PostalCode)]
-        [Display(Name = "Kod pocztowy*")]
+        [Display(Name = "Kod pocztowy")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string KodPocztowy { get; set; }
 
-        [Display(Name = "Poczta*")]
+        [Display(Name = "Poczta")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string Poczta { get; set; }
 
-        [Display(Name = "Ulica*")]
+        [Display(Name = "Ulica")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string Ulica { get; set; }
 
-        [Display(Name = "Nr domu*")]
+        [Display(Name = "Nr domu")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string NrDomu { get; set; }
 
@@ -57,7 +57,7 @@ namespace Waterworks.Models.View.Client
 
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = @"Pole jest wymagane")]
-        [Display(Name = "Numer telefonu*")]
+        [Display(Name = "Numer telefonu")]
         public string Telefon { get; set; }
 
         [DataType(DataType.PhoneNumber)]
@@ -65,7 +65,7 @@ namespace Waterworks.Models.View.Client
         public string DodatkowyTelefon { get; set; }
 
         [EmailAddress]
-        [Display(Name = "Email*")]
+        [Display(Name = "Email")]
         [Required(ErrorMessage = @"Pole jest wymagane")]
         public string Email { get; set; }
 
@@ -74,9 +74,9 @@ namespace Waterworks.Models.View.Client
         public string DodatkowyEmail { get; set; }
 
         //adres korespondencyjny
-        public CorrespondenceAdressViewModel CorrespondeceAddress { get; set; }
+        public CorrespondenceAdressViewModel AdresKorespondencyjny { get; set; }
 
         //aktywny odbiorca
-        public ActiveReceiverViewModel ActiveReceiver { get; set; }
+        public ActiveReceiverViewModel AktywnyOdbiorca { get; set; }
     }
 }

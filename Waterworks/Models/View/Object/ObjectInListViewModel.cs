@@ -12,6 +12,8 @@ namespace Waterworks.Models.View.Object
         [Display(Name = "Id obiektu")]
         public int Id { get; set; }
 
+        public int? IdKlienta { get; set; }
+
         [Required]
         [Display(Name = "Sposób rozliczenia")]
         public string SposobRozliczenia { get; set; }

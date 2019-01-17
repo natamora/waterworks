@@ -12,6 +12,7 @@ using Waterworks.Data;
 using Waterworks.Models.Db.Waterworks;
 using Newtonsoft.Json.Linq;
 using Waterworks.Models.View.Object;
+using X.PagedList;
 
 namespace Waterworks.Controllers
 {
@@ -27,29 +28,149 @@ namespace Waterworks.Controllers
         {
             return PartialView();
         }
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder, string currentCategory, string category, string currentFilter, string searchString, int? page)
         {
-            List<BasicCreateObjectViewModel> list = new List<BasicCreateObjectViewModel>();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["IdSortParam"] = String.IsNullOrEmpty(sortOrder) ? "Id_desc" : "";
+            ViewData["HouseNumberSortParam"] = sortOrder == "HouseNumber" ? "HouseNumber_desc" : "HouseNumber";
+            ViewData["StreetSortParam"] = sortOrder == "Street" ? "Street_desc" : "Street";
+            ViewData["PostalCodeSortParam"] = sortOrder == "PostalCode" ? "PostalCode_desc" : "PostalCode";
+            ViewData["ApartmentNumberSortParam"] = sortOrder == "ApartmentNumber" ? "ApartmentNumber_desc" : "ApartmentNumber";
+            ViewData["PlotNumberSortParam"] = sortOrder == "PlotNumber" ? "PlotNumber_desc" : "PlotNumber";
+            ViewData["PostSortParam"] = sortOrder == "Post" ? "Post_desc" : "Post";
+            ViewData["PayoffSortParam"] = sortOrder == "Payoff" ? "Payoff_desc" : "Payoff";
+            ViewData["CitySortParam"] = sortOrder == "City" ? "City_desc" : "City";
+            ViewData["ClientIdSortParam"] = sortOrder == "ClientId" ? "ClientId_desc" : "ClientId";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                category = currentCategory;
+                searchString = currentFilter;
+            }
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentCategory"] = category;
             var objects = dbContext.Obiekt
                 .Include(o => o.AdresObiektu)
                 .ToList();
 
+            List<BasicCreateObjectViewModel> list = new List<BasicCreateObjectViewModel>();
+
+            if (!String.IsNullOrWhiteSpace(searchString)) {
+                searchString = searchString.ToUpper();
+                //objects = objects.Where(o => o.AdresObiektu.First().Miejscowosc.ToUpper().Contains(searchString) ||
+                //o.AdresObiektu.First().KodPocztowy.ToUpper().Contains(searchString) ||
+                //o.AdresObiektu.First().NrDomu.ToUpper().Contains(searchString) ||
+                //o.AdresObiektu.First().NrLokalu.ToUpper().Contains(searchString) ||
+                //o.AdresObiektu.First().Ulica.ToUpper().Contains(searchString) ||
+                //o.AdresObiektu.First().NrDzialki.ToUpper().Contains(searchString) ||
+                //o.AdresObiektu.First().Poczta.ToUpper().Contains(searchString) ||
+                //o.SposobRozliczenia.ToUpper().Contains(searchString)
+                //)
+                //.ToList();
+                if (currentCategory == "KodPocztowy")
+                    objects = objects.Where(o => o.AdresObiektu.First().KodPocztowy.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "Miejscowosc")
+                    objects = objects.Where(o => o.AdresObiektu.First().Miejscowosc.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "NrDomu")
+                    objects = objects.Where(o => o.AdresObiektu.First().NrDomu.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "NrLokalu")
+                    objects = objects.Where(o => o.AdresObiektu.First().NrLokalu.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "Ulica")
+                    objects = objects.Where(o => o.AdresObiektu.First().Ulica.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "NrDzialki")
+                    objects = objects.Where(o => o.AdresObiektu.First().NrDzialki.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "Poczta")
+                    objects = objects.Where(o => o.AdresObiektu.First().Poczta.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "SposobRozliczenia")
+                    objects = objects.Where(o => o.SposobRozliczenia.ToUpper().Contains(searchString)).ToList();
+                else if (currentCategory == "IdKlienta")
+                    objects = objects.Where(o => o.KlientIdKlienta.ToString().ToUpper().Contains(searchString)).ToList();
+                else
+                    objects = objects.Where(o => o.Id.ToString().ToUpper().Contains(searchString)).ToList();
+            }
             foreach (var objectItem in objects)
             {
                 BasicCreateObjectViewModel tempObject = new BasicCreateObjectViewModel
                 {
+                    NumerKlienta = objectItem.KlientIdKlienta,
                     KodPocztowy = objectItem.AdresObiektu.First().KodPocztowy,
                     Miejscowosc = objectItem.AdresObiektu.First().Miejscowosc,
                     NrDomu = objectItem.AdresObiektu.First().NrDomu,
                     NrLokalu = objectItem.AdresObiektu.First().NrLokalu,
                     NrDzialki = objectItem.AdresObiektu.First().NrDzialki,
                     Poczta = objectItem.AdresObiektu.First().Poczta,
-                    SposobRozliczenia = objectItem.SposobRozliczenia,
+                    SposobRozliczenia = objectItem.SposobRozliczenia.ToString(),
                     Ulica = objectItem.AdresObiektu.First().Ulica,
                     Geometria = objectItem.Geometria.ToString(),
                     Id = objectItem.Id,
                 };
                 list.Add(tempObject);
+            }
+            switch (sortOrder)
+            {
+                case "Id_desc":
+                    list = list.OrderByDescending(o => o.Id).ToList();
+                    break;
+                case "HouseNumber":
+                    list = list.OrderBy(o => o.NrDomu).ToList();
+                    break;
+                case "HouseNumber_desc":
+                    list = list.OrderByDescending(o => o.NrDomu).ToList();
+                    break;
+                case "Street":
+                    list = list.OrderBy(o => o.Ulica).ToList();
+                    break;
+                case "Street_desc":
+                    list = list.OrderByDescending(o => o.Ulica).ToList();
+                    break;
+                case "PostalCode":
+                    list = list.OrderBy(o => o.KodPocztowy).ToList();
+                    break;
+                case "PostalCode_desc":
+                    list = list.OrderByDescending(o => o.KodPocztowy).ToList();
+                    break;
+                case "ApartmentNumber":
+                    list = list.OrderBy(o => o.NrLokalu).ToList();
+                    break;
+                case "ApartmentNumber_desc":
+                    list = list.OrderByDescending(o => o.NrLokalu).ToList();
+                    break;
+                case "PlotNumber":
+                    list = list.OrderBy(o => o.NrDzialki).ToList();
+                    break;
+                case "PlotNumber_desc":
+                    list = list.OrderByDescending(o => o.NrDzialki).ToList();
+                    break;
+                case "Post":
+                    list = list.OrderBy(o => o.Poczta).ToList();
+                    break;
+                case "Post_desc":
+                    list = list.OrderByDescending(o => o.Poczta).ToList();
+                    break;
+                case "Payoff":
+                    list = list.OrderBy(o => o.SposobRozliczenia).ToList();
+                    break;
+                case "Payoff_desc":
+                    list = list.OrderByDescending(o => o.SposobRozliczenia).ToList();
+                    break;
+                case "City":
+                    list = list.OrderBy(o => o.Miejscowosc).ToList();
+                    break;
+                case "City_desc":
+                    list = list.OrderByDescending(o => o.Miejscowosc).ToList();
+                    break;
+                case "ClientId":
+                    list = list.OrderBy(o => o.NumerKlienta).ToList();
+                    break;
+                case "ClientId_desc":
+                    list = list.OrderByDescending(o => o.NumerKlienta).ToList();
+                    break;
+                default:
+                    list = list.OrderBy(o => o.Id).ToList();
+                    break;
             }
             //List<ClientBasicInformation> list = new List<ClientBasicInformation>();
             //var clients = dbContext.Klient
@@ -66,7 +187,8 @@ namespace Waterworks.Controllers
             //    };
             //    list.Add(tempClient);
             //}
-            return View(list);
+            int pageSize = 10;    
+            return View(PaginatedList<BasicCreateObjectViewModel>.CreateAsync(list.AsQueryable<BasicCreateObjectViewModel>(), page ?? 1, pageSize));
         }
         public IActionResult Create()
         {
@@ -77,7 +199,6 @@ namespace Waterworks.Controllers
         [HttpPost]
         public IActionResult Create([Bind] BasicCreateObjectViewModel objectItem)
         {
-            
 
             if (ModelState.IsValid)
             {
@@ -97,7 +218,11 @@ namespace Waterworks.Controllers
             {
                 Geometria = new Point(x, y),
                 SposobRozliczenia = objectItem.SposobRozliczenia,
-                KlientIdKlienta = objectItem.NumerKlienta
+                KlientIdKlienta = objectItem.NumerKlienta,
+                Woda = false,
+                Scieki = false,
+                AbonamentWoda = false,
+                AbonamentScieki = false
             };
 
             var adresObiektu = new AdresObiektu()
@@ -185,6 +310,32 @@ namespace Waterworks.Controllers
             return View(objectModel);
         }
 
+        public IActionResult GeneralInfo(int id)
+        {
+            var objects = dbContext
+                .Obiekt
+                .Join(dbContext.AdresObiektu,
+                    o => o.Id,
+                    a => a.ObiektId,
+                    (o, a) => new { Obiekt = o, AdresObiektu = a })
+                .Where(o => o.Obiekt.Id == id)
+                .First();
+            BasicCreateObjectViewModel objectModel = new BasicCreateObjectViewModel()
+            {
+                NumerKlienta = objects.Obiekt.KlientIdKlienta,
+                Id = objects.Obiekt.Id,
+                Geometria = objects.Obiekt.Geometria.ToString(),
+                KodPocztowy = objects.AdresObiektu.KodPocztowy,
+                Miejscowosc = objects.AdresObiektu.Miejscowosc,
+                NrDomu = objects.AdresObiektu.NrDomu,
+                NrLokalu = objects.AdresObiektu.NrLokalu,
+                NrDzialki = objects.AdresObiektu.NrDzialki,
+                Poczta = objects.AdresObiektu.Poczta,
+                Ulica = objects.AdresObiektu.Ulica,
+                //SposobRozliczeniaId = (TypRozliczenia)objects.Obiekt.SposobRozliczeniaId
+            };
+            return PartialView("_Details", objectModel);
+        }
         public IActionResult AttachToClient(string id)
         {
             var model = new AttachClientToObjectViewModel {Id = Int32.Parse(id) };
@@ -223,6 +374,14 @@ namespace Waterworks.Controllers
             dbContext.SaveChanges();
             return RedirectToAction("AdvancedDetails/" + id, "Object");
         }
+        public IActionResult DetachObjectFromClientAndRedirectToClient(int objectId, int clientId)
+        {
+            var obj = dbContext.Obiekt.Where(o => o.Id == objectId).ToList().Single();
+            obj.KlientIdKlienta = null;
+            dbContext.Obiekt.Update(obj);
+            dbContext.SaveChanges();
+            return RedirectToAction("Details/" + clientId, "Client");
+        }
 
         public IActionResult GetObjectAttachedToClient(int clientId)
         {
@@ -236,6 +395,7 @@ namespace Waterworks.Controllers
             {
                 ObjectInListViewModel tempObject = new ObjectInListViewModel
                 {
+                    IdKlienta = objectItem.KlientIdKlienta,
                     KodPocztowy = objectItem.AdresObiektu.First().KodPocztowy,
                     Miejscowosc = objectItem.AdresObiektu.First().Miejscowosc,
                     NrDomu = objectItem.AdresObiektu.First().NrDomu,

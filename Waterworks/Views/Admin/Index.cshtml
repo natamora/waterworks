@@ -7,9 +7,11 @@
 
 
 <h2>Panel admina</h2>
-<h4>Tylko admin może przeglądać tę stronę!</h4>
-
-<div>
+<hr />
+<br />
+<h4> <strong>Cenniki </strong></h4>
+<br />
+@*<div>
     <hr />
     <div class="row">
         <a class="btn btn-primary" asp-area="" asp-controller="PriceList" asp-action="WaterPriceList">Cenniki woda</a>
@@ -17,4 +19,31 @@
         <a class="btn btn-primary" asp-area="" asp-controller="Subscription" asp-action="WaterPriceList">Cenniki abonament - woda</a>
         <a class="btn btn-primary" asp-area="" asp-controller="Subscription" asp-action="SewagePriceList">Cenniki abonament - ścieki</a>
     </div>
+</div>*@
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#object_list">Cennik woda</a></li>
+    <li><a data-toggle="tab" href="#object_list2">Cennik ścieki</a></li>
+    <li><a data-toggle="tab" href="#object_list3">Cenniki abonament - woda</a></li>
+    <li><a data-toggle="tab" href="#object_list4">Cenniki abonament - ścieki</a></li>
+</ul>
+<div class="tab-content">
+    <div id="object_list" class="tab-pane fade in active">
+    </div>
+    <div id="object_list2" class="tab-pane fade">
+    </div>
+    <div id="object_list3" class="tab-pane fade">
+    </div>
+    <div id="object_list4" class="tab-pane fade">
+    </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#object_list').load('@Url.Action("WaterPriceList", "PriceList")');
+            $('#object_list2').load('@Url.Action("SewagePriceList", "PriceList")');
+            $('#object_list3').load('@Url.Action("WaterPriceList", "Subscription")');
+            $('#object_list4').load('@Url.Action("SewagePriceList", "Subscription")');
+        });
+    </script>
+}

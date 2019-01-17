@@ -5,104 +5,126 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AdvancedDetails</h2>
+<h2>Obiekt nr @Model.Id</h2>
 
 <div>
-    <h4>ObjectViewModel</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SposobRozliczenia)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SposobRozliczenia)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Geometria)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Geometria)
-        <dt>
-            @Html.DisplayNameFor(model => model.NumerKlienta)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumerKlienta)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Miejscowosc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Miejscowosc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.KodPocztowy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KodPocztowy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NrDomu)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NrDomu)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ulica)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ulica)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NrLokalu)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NrLokalu)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NrDzialki)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NrDzialki)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Poczta)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Poczta)
-        </dd>
-    </dl>
-</div>
-<div id="modal-placeholder"></div>
-@if (Model.NumerKlienta == null)
-{
-    <button type="button" class="btn btn-primary"
-            data-toggle="ajax-modal" data-target="#attach-client"
-            data-url="@Url.Action("AttachToClient","Object")">
-        Przypisz do klienta
-    </button>
-}
-else
-{
-    <a class="btn btn-primary" asp-action="DetachFromClient" asp-route-id="@Model.Id">Odepnij od klienta</a>
-}
-@*<button type="button" class="btn btn-primary"
-            data-url="@Url.Action("AttachaToClient","Object")">
-        Przypisz do klienta
-    </button>*@
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
+    @*<dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SposobRozliczenia)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SposobRozliczenia)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Geometria)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Geometria)
+                <dt>
+                    @Html.DisplayNameFor(model => model.NumerKlienta)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NumerKlienta)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Miejscowosc)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Miejscowosc)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.KodPocztowy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.KodPocztowy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.NrDomu)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NrDomu)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Ulica)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Ulica)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.NrLokalu)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NrLokalu)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.NrDzialki)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NrDzialki)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Poczta)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Poczta)
+                </dd>
+            </dl>
+        </div>*@
+
+    <div id="modal-placeholder"></div>
+    @if (Model.NumerKlienta == null)
+    {
+        <button type="button" class="btn btn-primary"
+                data-toggle="ajax-modal" data-target="#attach-client"
+                data-url="@Url.Action("AttachToClient","Object")">
+            Przypisz do klienta
+        </button>
+    }
+    else
+    {
+        <a class="btn btn-primary" asp-action="DetachFromClient" asp-route-id="@Model.Id">Odepnij od klienta</a>
+    }
+       <br /><br />
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#general_info">Ogólne dane</a></li>
+        <li><a data-toggle="tab" href="#menu1">Formuły rozliczeń</a></li>
+            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="general_info" class="tab-pane fade in active">
+
+        </div>
+        <div id="menu1" class="tab-pane fade">
+                <h3>Menu 1</h3>
+                <p>Some content in menu 1.</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Some content in menu 2.</p>
+            </div>
+    </div>
+    @*<button type="button" class="btn btn-primary"
+                data-url="@Url.Action("AttachaToClient","Object")">
+            Przypisz do klienta
+        </button>*@
+    @*<div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+    @*<div id="object_list"></div>*@
+    @section Scripts {
+        <script>
         $(function () {
+            $('#general-info').load('@Url.Action("GeneralInfo", "Object", new { id = Model.Id})');
+
             var placeholderElement = $('#modal-placeholder');
             $('button[data-toggle="ajax-modal"]').click(function (event) {
                 var url = $(this).data('url');
@@ -135,5 +157,8 @@ else
                 });
             });
         });
-    </script>
-}
+        $(document).ready(function () {
+            $('#general_info').load('@Url.Action("GeneralInfo", "Object", new { id = Model.Id})');
+        });
+        </script>
+    }

@@ -31,6 +31,8 @@ namespace Waterworks.Data
         public virtual DbSet<OplatyAbonamentoweWoda> OplatyAbonamentoweWoda { get; set; }
         public virtual DbSet<RodzajKlienta> RodzajKlienta { get; set; }
         public virtual DbSet<WartosciKlasyfikatorow> WartosciKlasyfikatorow { get; set; }
+        public virtual DbSet<FormulyZmniejszajace> FormulyZmniejszajace { get; set; }
+        public virtual DbSet<Wodomierz> Wodomierz { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -117,6 +119,55 @@ namespace Waterworks.Data
                     .HasForeignKey(d => d.ObiektId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("adres_obiektu_obiekt");
+            });
+
+            modelBuilder.Entity<FormulyZmniejszajace>(entity =>
+            {
+                entity.ToTable("formuly_zmniejszajace");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ObiektId).HasColumnName("obiekt_id");
+
+                entity.Property(e => e.WodomierzId).HasColumnName("wodomierz_id");
+
+                entity.HasOne(d => d.Wodomierz)
+                    .WithMany(p => p.FormulyZmniejszajace)
+                    .HasForeignKey(d => d.WodomierzId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("formuly_zmniejszajace_wodomierz");
+            });
+
+            modelBuilder.Entity<Wodomierz>(entity =>
+            {
+                entity.ToTable("wodomierz");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.DataEwidencji)
+                    .HasColumnName("data_ewidencji")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.DataLegalizacji)
+                    .HasColumnName("data_legalizacji")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.NrWodomierza).HasColumnName("nr_wodomierza");
+
+                entity.Property(e => e.ObiektId).HasColumnName("obiekt_id");
+
+                entity.Property(e => e.TypWodomierza)
+                    .IsRequired()
+                    .HasColumnName("typ_wodomierza")
+                    .HasMaxLength(20);
+
+                entity.HasOne(d => d.Obiekt)
+                    .WithMany(p => p.Wodomierz)
+                    .HasForeignKey(d => d.ObiektId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("wodomierz_obiekt");
             });
 
             modelBuilder.Entity<AktywnyOdbiorca>(entity =>
@@ -252,6 +303,10 @@ namespace Waterworks.Data
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.AdresKorespondencyjnyId).HasColumnName("adres_korespondencyjny_id");
+
+                entity.Property(e => e.NazwaFirmy)
+                    .HasColumnName("nazwa_firmy")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -462,6 +517,11 @@ namespace Waterworks.Data
 
                 entity.Property(e => e.Geometria).HasColumnName("geometria");
 
+                entity.Property(e => e.Woda).HasColumnName("woda");
+                entity.Property(e => e.Scieki).HasColumnName("scieki");
+                entity.Property(e => e.AbonamentScieki).HasColumnName("abonament_woda");
+                entity.Property(e => e.AbonamentWoda).HasColumnName("abonament_scieki");
+
                 entity.Property(e => e.SposobRozliczenia)
                     .IsRequired()
                     .HasColumnName("sposob_rozliczenia")
@@ -575,6 +635,8 @@ namespace Waterworks.Data
         public DbSet<Waterworks.Models.View.Client.BasicCreateObjectViewModel> BasicCreateObjectViewModel { get; set; }
 
         public DbSet<Waterworks.Models.View.Object.ObjectInListViewModel> ObjectInListViewModel { get; set; }
+
+        public DbSet<Waterworks.Models.View.PriceList.PriceViewModel> PriceViewModel { get; set; }
 
     }
 }

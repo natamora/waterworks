@@ -1,54 +1,106 @@
-﻿@model IEnumerable<Waterworks.Models.View.Client.ClientBasicInformation>
+﻿@model PaginatedList<Waterworks.Models.View.Client.ClientBasicInformation>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h2>Kartoteka kontrahentów</h2>
+<hr />
+<form asp-controller="Client" asp-action="Index" method="get">
+    <div class="form-inline">
+        <select class="form-control form-control-sm" id="exampleFormControlSelect1" name="currentCategory">
+            <option value="IdKlienta">Id klienta</option>
+            <option value="RodzajKlienta">Rodzaj Klienta</option>
+            <option value="NazwaFirmy">Nazwa Firmy</option>
+            <option value="Imie">Imię</option>
+            <option value="Nazwisko">Nazwisko</option>
+            <option value="NIP">NIP</option>
+            <option value="PESEL">PESEL</option>
+        </select>
+        <input class="form-control form-control-sm" type="text" name="searchString">
+        <input type="submit" value="Wyszukaj" class="btn btn-primary" />
+        <a asp-action="Create" asp-controller="Client" class="btn btn-primary">Dodaj klienta</a>
+    </div>
+</form>
+</br>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ClientId)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParam"]">Id</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RodzajKlientaId)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ClientTypeSortParam"]">Rodzaj klienta</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NIP)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CompanyNameSortParam"]">Nazwa firmy</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PESEL)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">Imię</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SurnameSortParam"]">Nazwisko</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NIPSortParam"]">NIP</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PESELSortParam"]">PESEL</a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RodzajKlientaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NIP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PESEL)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RodzajKlientaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazwaFirmy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Imie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nazwisko)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NIP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PESEL)
+                </td>
+                <td>
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ClientId })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-currentCategory="@ViewData["CurrentCategory"]"
+   class="btn btn-default @prevDisabled">
+    Poprzedni
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-currentCategory="@ViewData["CurrentCategory"]"
+   class="btn btn-default @nextDisabled">
+    Następny
+</a>

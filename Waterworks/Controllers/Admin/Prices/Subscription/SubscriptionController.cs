@@ -41,7 +41,7 @@ namespace Waterworks.Controllers.Admin.Prices.Subscription
                 };
                 list.Add(tempObject);
             }
-            return View("~/Views/PriceList/WaterSubscription/List.cshtml", list);
+            return PartialView("~/Views/PriceList/WaterSubscription/_List.cshtml", list);
         }
         [HttpGet]
         public IActionResult WaterPriceCreate()
@@ -66,7 +66,7 @@ namespace Waterworks.Controllers.Admin.Prices.Subscription
             dbContext.OplatyAbonamentoweWoda.Add(item);
             dbContext.SaveChanges();
 
-            return RedirectToAction("SewagePriceList", "PriceList");
+            return RedirectToAction("Admin", "Index");
         }
 
         public IActionResult SewagePriceList()
@@ -93,7 +93,7 @@ namespace Waterworks.Controllers.Admin.Prices.Subscription
                 };
                 list.Add(tempObject);
             }
-            return View("~/Views/PriceList/SewageSubscription/List.cshtml", list);
+            return PartialView("~/Views/PriceList/SewageSubscription/_List.cshtml", list);
         }
         [HttpGet]
         public IActionResult SewagePriceCreate()
@@ -118,7 +118,7 @@ namespace Waterworks.Controllers.Admin.Prices.Subscription
             dbContext.OplatyAbonamentoweScieki.Add(item);
             dbContext.SaveChanges();
 
-            return RedirectToAction("SewagePriceList", "Subscritpion");
+            return RedirectToAction("Admin", "Index");
         }
     }
 }

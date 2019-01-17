@@ -16,10 +16,14 @@ namespace Waterworks.Models.Db.Waterworks
         public Point Geometria { get; set; }
         public string SposobRozliczenia { get; set; }
         public int? AktywnyOdbiorcaId { get; set; }
-
+        public bool? Woda { get; set; }
+        public bool? Scieki { get; set; }
+        public bool? AbonamentWoda { get; set; }
+        public bool? AbonamentScieki { get; set; }
         public AktywnyOdbiorca AktywnyOdbiorca { get; set; }
         public Klient KlientIdKlientaNavigation { get; set; }
         public KlasyfikatoryObiektu KlasyfikatoryObiektu { get; set; }
         public ICollection<AdresObiektu> AdresObiektu { get; set; }
+        public ICollection<Wodomierz> Wodomierz { get; set; }
     }
 }

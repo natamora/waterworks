@@ -395,6 +395,7 @@ namespace Waterworks.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     imie = table.Column<string>(maxLength: 40, nullable: false),
                     nazwisko = table.Column<string>(maxLength: 40, nullable: false),
+                    nazwa_firmy = table.Column<string>(maxLength: 50, nullable:false),
                     miejscowosc = table.Column<string>(maxLength: 40, nullable: false),
                     kod_pocztowy = table.Column<string>(maxLength: 6, nullable: false),
                     poczta = table.Column<string>(maxLength: 20, nullable: false),
@@ -457,7 +458,11 @@ namespace Waterworks.Migrations
                     klient_id_klienta = table.Column<int>(nullable: true),
                     geometria = table.Column<Point>(nullable: true),
                     sposob_rozliczenia = table.Column<string>(maxLength: 20, nullable: false),
-                    aktywny_odbiorca_id = table.Column<int>(nullable: true)
+                    aktywny_odbiorca_id = table.Column<int>(nullable: true),
+                    woda = table.Column<bool>(nullable: true),
+                    scieki = table.Column<bool>(nullable: true),
+                    abonament_woda = table.Column<bool>(nullable:true),
+                    abonament_scieki = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {

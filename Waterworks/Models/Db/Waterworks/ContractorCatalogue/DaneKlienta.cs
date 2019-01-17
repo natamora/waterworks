@@ -8,6 +8,7 @@ namespace Waterworks.Models.Db.Waterworks
         public int Id { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
+        public string NazwaFirmy { get; set; }
         public string Miejscowosc { get; set; }
         public string KodPocztowy { get; set; }
         public string Poczta { get; set; }

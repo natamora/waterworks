@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<Waterworks.Models.View.Object.ObjectInListViewModel>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -55,9 +52,9 @@
                 @Html.DisplayFor(modelItem => item.NrDzialki)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="DetachObjectFromClientAndRedirectToClient" asp-controller="Object" asp-route-objectId=@item.Id asp-route-clientId=@item.IdKlienta>Odepnij obiekt</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+
             </td>
         </tr>
 }

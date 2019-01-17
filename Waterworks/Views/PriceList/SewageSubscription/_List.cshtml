@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Waterworks.Models.View.PriceList.SubscriptionPriceViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OkresRozliczeniowy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oplata)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RodzajKlienta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RodzajKlientaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazwaCennika)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypCennika)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OkresRozliczeniowy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oplata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RodzajKlienta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RodzajKlientaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazwaCennika)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypCennika)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-action="SewagePriceCreate" asp-controller="Subscription" class="btn btn-primary">Utwórz nowy</a>
+</p>

@@ -9,7 +9,7 @@ namespace Waterworks.Models.View.Client
     public class CorrespondenceAdressViewModel
     {
         //adres korespondencyjny
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Miejscowość")]
         public string Miejscowosc { get; set; }
