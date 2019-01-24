@@ -20,27 +20,31 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <img src="~/images/pinezka.png" class="img-rounded" height="30" width="30" style="margin-top:7%" />
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Wodociągi</a>
+                </button>*@
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    Wodociągi
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">O stronie</a></li>
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <li><a asp-area="" asp-controller="Admin" asp-action="Index" style="color:#38c7c9">Panel Admina</a></li>
+                        <li><a asp-area="" asp-controller="Admin" asp-action="Index">Panel Admina</a></li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-area="" asp-controller="Map" asp-action="Index">Mapa</a></li>
-                        <li><a asp-area="" asp-controller="Client" asp-action="Index">Kartoteka kontrahenta</a></li>
-                        <li><a asp-area="" asp-controller="Object" asp-action="Index">Kartoteka obiektu</a></li>
+                        <li><a asp-area="" asp-controller="Client" asp-action="Index">Kartoteka kontrahentów</a></li>
+                        <li><a asp-area="" asp-controller="Object" asp-action="Index">Kartoteka obiektów</a></li>
+                        <li><a asp-area="" asp-controller="WaterMeter" asp-action="Index">Kartoteka wodomierzy</a></li>
+                        <li><a asp-area="" asp-controller="Contract" asp-action="Index">Umowy</a></li>
                     }
                 </ul>
                 <partial name="_LoginPartial" />

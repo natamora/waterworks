@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Waterworks.Models.View.PointFeature>
+<div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+</div>
+<div id="map"></div>
+<script type="text/javascript">
+
+    var distance = 40;
+    var model = '@Html.Raw(Json.Serialize(Model))';
+    var pointList = JSON.parse(model);
+
+    var wktReader = new ol.format.WKT();
+    var featureCollection = [];
+    for (var i = 0; i < pointList.length; i++) {
+        var feature = wktReader.readFeature(pointList[i].stringGeometry, { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' });
+        //feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+        feature.setId(pointList[i].id);
+        featureCollection.push(feature);
+    }
+
+
+    var source = new ol.source.Vector({
+        //features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
+        features: featureCollection
+    });
+
+    var clusterSource = new ol.source.Cluster({
+        distance: distance,
+        source: source
+    });
+
+    var clusters = new ol.layer.Vector({
+        source: clusterSource,
+        style: function (feature) {
+            var size = feature.get('features').length;
+            var style;
+            if (size == 1) {
+                style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 5,
+                        fill: new ol.style.Fill({
+                            color: '#373860'
+                        })
+                    }),
+                });
+            }
+            else {
+                style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 8,
+                        fill: new ol.style.Fill({
+                            color: '#373860'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#FFFFFF'
+                        })
+                    }),
+                    text: new ol.style.Text({
+                        text: size.toString(),
+                        fill: new ol.style.Fill({
+                            color: '#fff'
+                        })
+                    })
+                });
+            }
+            return style;
+        },
+        maxResolution: 20
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: source,
+        visible: true,
+        style: new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 4,
+                fill: new ol.style.Fill({
+                    color: '#373860'
+                })
+            })
+        }),
+        //minResolution: 0,
+        maxResolution: 20
+    });
+
+    var element = document.getElementById('popup');
+    var content = document.getElementById('popup-content');
+    var closer = document.getElementById('popup-closer');
+
+    var popup = new ol.Overlay({
+        element: element,
+    });
+
+    closer.onclick = function () {
+        popup.setPosition(undefined);
+        closer.blur();
+        return false;
+    };
+
+    var map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            }),
+            //vectorLayer,
+            clusters
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([19.95, 50.066]),
+            zoom: 13
+        })
+    });
+
+    map.addOverlay(popup);
+</script>
+

@@ -12,10 +12,10 @@ namespace Waterworks.Models.Db.Waterworks
         }
 
         public int Id { get; set; }
-        public int NrWodomierza { get; set; }
+        public string NrWodomierza { get; set; }
         public DateTime DataEwidencji { get; set; }
         public DateTime DataLegalizacji { get; set; }
-        public int ObiektId { get; set; }
+        public int? ObiektId { get; set; }
         public string TypWodomierza { get; set; }
 
         public Obiekt Obiekt { get; set; }

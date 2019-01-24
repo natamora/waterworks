@@ -25,7 +25,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="Models\Db\Waterworks\WaterMeter\" />
+    <Folder Include="Models\Db\Waterworks\WaterMeterCatalogue\" />
+    <Folder Include="Views\Map\" />
   </ItemGroup>
 
 </Project>

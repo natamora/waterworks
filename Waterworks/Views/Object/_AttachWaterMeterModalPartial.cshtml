@@ -1,0 +1,40 @@
+﻿@model Waterworks.Models.View.WaterMeter.AttachWaterMeterToObjectViewModel
+<!-- Modal -->
+<div class="modal fade" id="attach-watermeter" tabindex="-1" role="dialog" aria-labelledby="attachWaterMeterLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="attachWaterMeterLabel">
+                    Zamontuj wodomierz
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Object" asp-action="AttachWaterMeter">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <label asp-for="TypWodomierza"></label>
+                    <select class="form-control form-control-sm" asp-for="TypWodomierza">
+                        <option value="GLOWNY">Główny</option>
+                        <option value="SUBLICZNIK">Sublicznik</option>
+                    </select>
+                    <span asp-validation-for="TypWodomierza" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="NrWodomierza"></label>
+                        <input asp-for="NrWodomierza" class="form-control" />
+                        <span asp-validation-for="NrWodomierza" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="IdObiektu" class="form-control" value="@(Model.IdObiektu)" type="hidden" />
+                        <span asp-validation-for="IdObiektu" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Zapisz</button>
+            </div>
+        </div>
+    </div>
+</div>

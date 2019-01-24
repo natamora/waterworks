@@ -13,6 +13,8 @@ using Waterworks.Models.Db.Waterworks;
 using Newtonsoft.Json.Linq;
 using Waterworks.Models.View.Object;
 using X.PagedList;
+using Waterworks.Models.View;
+using Waterworks.Models.View.WaterMeter;
 
 namespace Waterworks.Controllers
 {
@@ -309,7 +311,7 @@ namespace Waterworks.Controllers
             };
             return View(objectModel);
         }
-
+       
         public IActionResult GeneralInfo(int id)
         {
             var objects = dbContext
@@ -320,11 +322,12 @@ namespace Waterworks.Controllers
                     (o, a) => new { Obiekt = o, AdresObiektu = a })
                 .Where(o => o.Obiekt.Id == id)
                 .First();
+            var geometry = objects.Obiekt.Geometria.ToString();
             BasicCreateObjectViewModel objectModel = new BasicCreateObjectViewModel()
             {
                 NumerKlienta = objects.Obiekt.KlientIdKlienta,
                 Id = objects.Obiekt.Id,
-                Geometria = objects.Obiekt.Geometria.ToString(),
+                Geometria = geometry.Substring(7,geometry.Length-8),
                 KodPocztowy = objects.AdresObiektu.KodPocztowy,
                 Miejscowosc = objects.AdresObiektu.Miejscowosc,
                 NrDomu = objects.AdresObiektu.NrDomu,
@@ -336,9 +339,9 @@ namespace Waterworks.Controllers
             };
             return PartialView("_Details", objectModel);
         }
-        public IActionResult AttachToClient(string id)
+        public IActionResult AttachToClient(string objectId)
         {
-            var model = new AttachClientToObjectViewModel {Id = Int32.Parse(id) };
+            var model = new AttachClientToObjectViewModel {Id = Int32.Parse(objectId) };
 
             return PartialView("_AttachClientModalPartial", model);
         }
@@ -360,7 +363,6 @@ namespace Waterworks.Controllers
                         obj.KlientIdKlienta = model.NumerKlienta;
                         dbContext.Obiekt.Update(obj);
                         dbContext.SaveChanges();
-                        //return RedirectToAction("AdvancedDetails/" + obj.Id, "Object");
                         return Json(new { status = 302, url = "/Object/AdvancedDetails/"+ obj.Id });
                     }
                 }     
@@ -408,6 +410,62 @@ namespace Waterworks.Controllers
                 list.Add(tempObject);
             }
             return PartialView("_ClientObjects", list);
+        }
+        public IActionResult Map(int id)
+        {
+            var pointsList = dbContext.Obiekt.Where(o => o.Id == id).ToList();
+            List<PointFeature> pointList = new List<PointFeature>();
+            foreach (Obiekt o in pointsList)
+            {
+                pointList.Add(new PointFeature(o.Id, o.Geometria));
+            }
+            return PartialView("~/Views/Object/_Map.cshtml", pointList);
+        }
+        public IActionResult AttachWaterMeter(string objectId) {
+            var model = new AttachWaterMeterToObjectViewModel { IdObiektu = Int32.Parse(objectId) };
+            return PartialView("_AttachWaterMeterModalPartial", model);
+        }
+        [HttpPost]
+        public IActionResult AttachWaterMeter(AttachWaterMeterToObjectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!string.IsNullOrEmpty(model.NrWodomierza))
+                {
+                    var waterMeter = dbContext.Wodomierz.Where(w => w.NrWodomierza == model.NrWodomierza).ToList();
+                    if (waterMeter.Count >= 1)
+                    {
+                        var waterMeters = dbContext.Wodomierz.Where(w => w.ObiektId == model.IdObiektu).ToList();
+                        if ((waterMeters.Where(w => w.TypWodomierza == "GLOWNY").ToList().Count > 0) && model.TypWodomierza == "GLOWNY") {
+                            ModelState.AddModelError("TypWodomierza", "*W tym obiekcie istnieje już wodomierz główny");
+                        }
+                        else
+                        {
+                            var item = waterMeter.Single();
+                            item.ObiektId = model.IdObiektu;
+                            item.TypWodomierza = model.TypWodomierza;
+                            dbContext.Wodomierz.Update(item);
+                            dbContext.SaveChanges();
+                            //return RedirectToAction("AdvancedDetails/" + obj.Id, "Object");
+                            return Json(new { status = 302, url = "/Object/AdvancedDetails/" + model.IdObiektu });
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("NrWodomierza", "*Nie ma takiego wodomierza");
+                    }
+                }
+            }
+            return PartialView("_AttachWaterMeterModalPartial", model);
+        }
+        public IActionResult DetachWaterMeter(int id)
+        {
+            var waterMeter = dbContext.Wodomierz.Where(o => o.Id == id).ToList().Single();
+            waterMeter.ObiektId = null;
+            waterMeter.TypWodomierza = "ODPIETY";
+            dbContext.Wodomierz.Update(waterMeter);
+            dbContext.SaveChanges();
+            return RedirectToAction("AdvancedDetails/" + id, "Object");
         }
         //[HttpPost]
         //public PartialViewResult DisplayEmployees([FromBody] string id)

@@ -4,6 +4,9 @@
     ViewData["Title"] = "AdvancedDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.2.0/css/ol.css" type="text/css">
+<link rel="stylesheet" href="~/css/map/map.css" />
+<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.2.0/build/ol.js"></script>
 
 <h2>Obiekt nr @Model.Id</h2>
 
@@ -79,6 +82,7 @@
         </div>*@
 
     <div id="modal-placeholder"></div>
+
     @if (Model.NumerKlienta == null)
     {
         <button type="button" class="btn btn-primary"
@@ -91,36 +95,34 @@
     {
         <a class="btn btn-primary" asp-action="DetachFromClient" asp-route-id="@Model.Id">Odepnij od klienta</a>
     }
-       <br /><br />
+    <br /><br />
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#general_info">Ogólne dane</a></li>
-        <li><a data-toggle="tab" href="#menu1">Formuły rozliczeń</a></li>
-            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+        <li><a data-toggle="tab" href="#map">Formuły rozliczeń</a></li>
+        <li><a data-toggle="tab" href="#water_meter_list">Kartoteka wodomierzy</a></li>
     </ul>
     <div class="tab-content">
         <div id="general_info" class="tab-pane fade in active">
 
         </div>
-        <div id="menu1" class="tab-pane fade">
-                <h3>Menu 1</h3>
-                <p>Some content in menu 1.</p>
-            </div>
-            <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Some content in menu 2.</p>
-            </div>
+        <div id="map" class="tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>Some content in menu 1.</p>
+        </div>
+        <div id="water_meter_list" class="tab-pane fade">
+            <div id="water_list"></div>
+            @*<a asp-action="Detach" asp-controller="WaterMeter"
+                asp-route-objectId="@Model.Id"
+                class="btn btn-primary">Zamontuj wodomierz</a>*@
+            <button type="button" class="btn btn-primary"
+                    data-toggle="ajax-modal" data-target="#attach-watermeter"
+                    data-url="@Url.Action("AttachWaterMeter","Object")">
+                Zamontuj wodomierz
+            </button>
+        </div>
     </div>
-    @*<button type="button" class="btn btn-primary"
-                data-url="@Url.Action("AttachaToClient","Object")">
-            Przypisz do klienta
-        </button>*@
-    @*<div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>*@
-
-    @*<div id="object_list"></div>*@
     @section Scripts {
+        @*<script src="~/js/modal.js"></script>*@
         <script>
         $(function () {
             $('#general-info').load('@Url.Action("GeneralInfo", "Object", new { id = Model.Id})');
@@ -128,8 +130,8 @@
             var placeholderElement = $('#modal-placeholder');
             $('button[data-toggle="ajax-modal"]').click(function (event) {
                 var url = $(this).data('url');
-                var id = '@Model.Id';
-                var parametersData = { id: id };
+                var objectId = '@Model.Id';
+                var parametersData = { objectId: objectId };
                 $.get(url, parametersData).done(function (data) {
                     placeholderElement.html(data);
                     placeholderElement.find('.modal').modal('show');
@@ -157,8 +159,11 @@
                 });
             });
         });
+
         $(document).ready(function () {
             $('#general_info').load('@Url.Action("GeneralInfo", "Object", new { id = Model.Id})');
+            $('#water_list').load('@Url.Action("List", "WaterMeter", new { id = Model.Id })');
+            @*$('#map').load('@Url.Action("Map", "Object", new { id = Model.Id })');*@
         });
         </script>
     }

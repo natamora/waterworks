@@ -9,6 +9,7 @@ namespace Waterworks.Models.Db.Waterworks
         public int ObiektId { get; set; }
         public int WodomierzId { get; set; }
 
+        public Obiekt Obiekt { get; set; }
         public Wodomierz Wodomierz { get; set; }
     }
 }

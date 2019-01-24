@@ -1,0 +1,98 @@
+﻿@model PaginatedList<Waterworks.Models.View.Contract.BasicContractViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Umowy</h2>
+<hr />
+<form asp-controller="Contract" asp-action="Index" method="get">
+    <div class="form-inline">
+        <select class="form-control form-control-sm" id="exampleFormControlSelect1" name="currentCategory">
+            <option value="NrUmowy">Nr umowy</option>
+            <option value="DataZawarcia">Data zawarcia</option>
+            <option value="DataObowiazywaniaOd">Data obowiązywania od</option>
+            <option value="DataObowiazywaniaDo">Data obowiązywania do</option>
+            <option value="TypUmowy">Typ umowy</option>
+            <option value="Uwagi">Uwagi</option>
+        </select>
+        <input class="form-control form-control-sm" type="text" name="searchString">
+        <input type="submit" value="Wyszukaj" class="btn btn-primary" />
+    </div>
+</form>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ContractNumberSortParam"]">Nr umowy</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AgreementDateSortParam"]">Data zawarcia</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["FromDateSortParam"]">Data obowiązywania od</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ToDateSortParam"]">Data obowiązywania do</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ContractTypeSortParam"]">Typ umowy</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CommentSortParam"]">Uwagi</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrUmowy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataZawarcia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataObowiazywaniaOd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataObowiazywaniaDo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypUmowy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uwagi)
+                </td>
+                <td>
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.NrUmowy })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-currentCategory="@ViewData["CurrentCategory"]"
+   class="btn btn-default @prevDisabled">
+    Poprzedni
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-currentCategory="@ViewData["CurrentCategory"]"
+   class="btn btn-default @nextDisabled">
+    Następny
+</a>

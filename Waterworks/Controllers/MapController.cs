@@ -27,7 +27,6 @@ namespace Waterworks.Controllers
                 pointList.Add(new PointFeature(o.Id, o.Geometria));
             }
             return View("~/Views/Map/Index.cshtml", pointList);
-            //return View("~/Views/Map/Index.cshtml");
         }
     }
 }

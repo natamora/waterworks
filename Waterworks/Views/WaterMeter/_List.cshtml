@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Waterworks.Models.View.WaterMeter.WaterMeterViewModel>
+<br>
+@*<div id="modal-placeholder"></div>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NrWodomierza)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataLegalizacji)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataEwidencji)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypWodomierza)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrWodomierza)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataLegalizacji)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataEwidencji)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypWodomierza)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link"
+                            data-toggle="ajax-modal" data-target="#attach-watermeter"
+                            data-url="@Url.Action("ChangeWaterMeter","WaterMeter", new { objectId = item.ObiektId, oldWaterMeterNumber = item.NrWodomierza, oldWaterMeterType = item.TypWodomierza })">
+                        Wymień
+                    </button>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                    <a asp-controller="Object" asp-action="DetachWaterMeter" asp-route-id="@item.Id">Odepnij</a>
+                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <script src="~/js/modal.js"></script>
+
+

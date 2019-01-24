@@ -24,6 +24,8 @@ namespace Waterworks.Models.Db.Waterworks
         public Klient KlientIdKlientaNavigation { get; set; }
         public KlasyfikatoryObiektu KlasyfikatoryObiektu { get; set; }
         public ICollection<AdresObiektu> AdresObiektu { get; set; }
+        public ICollection<FormulyZmniejszajace> FormulyZmniejszajace { get; set; }
         public ICollection<Wodomierz> Wodomierz { get; set; }
+        public ICollection<Umowa> Umowa { get; set; }
     }
 }

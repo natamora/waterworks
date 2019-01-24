@@ -1,7 +1,7 @@
 ﻿@model PaginatedList<Waterworks.Models.View.Client.BasicCreateObjectViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kartoteka obiektów";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,12 +22,12 @@
             <option value="SposobRozliczenia">Sposob Rozliczenia</option>
         </select>
         <input class="form-control form-control-sm" type="text" name="searchString">
-        <input type="submit" value="Wyszukaj"  class="btn btn-primary"/>
+        <input type="submit" value="Wyszukaj" class="btn btn-primary" />
         <a asp-action="Index" asp-controller="Map" class="btn btn-primary">Dodaj obiekt</a>
     </div>
 </form>
 <br />
-
+<div id="modal-placeholder"></div>
 <table class="table">
     <thead>
         <tr>

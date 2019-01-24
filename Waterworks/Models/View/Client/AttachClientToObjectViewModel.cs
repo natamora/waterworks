@@ -8,6 +8,7 @@ namespace Waterworks.Models.View.Client
 {
     public class AttachClientToObjectViewModel
     {
+        [RegularExpression("[0-9]+")]
         public int Id { get; set; }
 
         [RegularExpression("[0-9]+")]

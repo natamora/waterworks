@@ -1,0 +1,91 @@
+﻿@model PaginatedList<Waterworks.Models.View.WaterMeter.WaterMeterViewModel>
+
+@{
+    ViewData["Title"] = "Kartoteka wodomierzy";
+}
+
+<h2>Kartoteka wodomierzy</h2>
+<hr />
+<form asp-controller="WaterMeter" asp-action="Index" method="get">
+    <div class="form-inline">
+        <select class="form-control form-control-sm" id="exampleFormControlSelect1" name="currentCategory">
+            <option value="NrWodomierza">Nr Wodomierza</option>
+            <option value="IdObiektu">Id Obiektu</option>
+            <option value="DataLegalizacji">Data Legalizacji</option>
+            <option value="DataEwidencji">Data Ewidencji</option>
+            <option value="TypWodomierza">Typ wodomierza</option>
+        </select>
+        <input class="form-control form-control-sm" type="text" name="searchString">
+        <input type="submit" value="Wyszukaj" class="btn btn-primary" />
+    </div>
+</form>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WaterMeterNumberSortParam"]">Nr Wodomierza</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ObjectIdSortParam"]">Id obiektu</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["LegalizationDateSortParam"]">Data legalizacji</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RecordDateSortParam"]">Data ewidencji</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WaterMeterTypeSortParam"]">Typ wodomierza</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrWodomierza)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ObiektId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataLegalizacji)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataEwidencji)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypWodomierza)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-currentCategory="@ViewData["CurrentCategory"]"
+   class="btn btn-default @prevDisabled">
+    Poprzedni
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-currentCategory="@ViewData["CurrentCategory"]"
+   class="btn btn-default @nextDisabled">
+    Następny
+</a>

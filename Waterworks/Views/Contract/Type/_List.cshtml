@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Waterworks.Models.View.Contract.ContractTypeViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Typ)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Typ)
+                </td>
+                <td>
+                    <a asp-controller="ContractAdmin" asp-action="ContractTypeDelete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="modal-placeholder"></div>
+<button type="button" class="btn btn-primary"
+        data-toggle="ajax-modal" data-target="#attach-watermeter"
+        data-url="@Url.Action("ContractTypeCreate","ContractAdmin")">
+    Utwórz nowy
+</button>
+@*<script src="~/js/modal.js"></script>*@

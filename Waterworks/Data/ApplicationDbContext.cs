@@ -7,6 +7,8 @@ using Waterworks.Models.Db.Waterworks;
 using Waterworks.Models.View.Client;
 using Waterworks.Models.View.PriceList;
 using Waterworks.Models.View.Object;
+using Waterworks.Models.View.WaterMeter;
+using Waterworks.Models.View.Contract;
 namespace Waterworks.Data
 {
     public class ApplicationDbContext : IdentityDbContext
@@ -33,6 +35,11 @@ namespace Waterworks.Data
         public virtual DbSet<WartosciKlasyfikatorow> WartosciKlasyfikatorow { get; set; }
         public virtual DbSet<FormulyZmniejszajace> FormulyZmniejszajace { get; set; }
         public virtual DbSet<Wodomierz> Wodomierz { get; set; }
+
+        public virtual DbSet<TypUmowy> TypUmowy { get; set; }
+        public virtual DbSet<TytulPrawny> TytulPrawny { get; set; }
+        public virtual DbSet<GranicaOdpowiedzialnosci> GranicaOdpowiedzialnosci { get; set; }
+        public virtual DbSet<Umowa> Umowa { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -131,6 +138,13 @@ namespace Waterworks.Data
 
                 entity.Property(e => e.WodomierzId).HasColumnName("wodomierz_id");
 
+                entity.HasOne(d => d.Obiekt)
+                   .WithMany(p => p.FormulyZmniejszajace)
+                   .HasForeignKey(d => d.ObiektId)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("formuly_zmniejszajace_obiekt");
+
+
                 entity.HasOne(d => d.Wodomierz)
                     .WithMany(p => p.FormulyZmniejszajace)
                     .HasForeignKey(d => d.WodomierzId)
@@ -166,7 +180,6 @@ namespace Waterworks.Data
                 entity.HasOne(d => d.Obiekt)
                     .WithMany(p => p.Wodomierz)
                     .HasForeignKey(d => d.ObiektId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("wodomierz_obiekt");
             });
 
@@ -628,6 +641,131 @@ namespace Waterworks.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("wartosci_klasyfikatorow_klasyfikatory");
             });
+
+            modelBuilder.Entity<GranicaOdpowiedzialnosci>(entity =>
+            {
+                entity.ToTable("granica_odpowiedzialnosci");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Nazwa)
+                    .IsRequired()
+                    .HasColumnName("nazwa")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Typ)
+                    .IsRequired()
+                    .HasColumnName("typ")
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TypUmowy>(entity =>
+            {
+                entity.ToTable("typ_umowy");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Typ)
+                    .IsRequired()
+                    .HasColumnName("typ")
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<TytulPrawny>(entity =>
+            {
+                entity.ToTable("tytul_prawny");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Nazwa)
+                    .IsRequired()
+                    .HasColumnName("nazwa")
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Umowa>(entity =>
+            {
+                entity.HasKey(e => e.NrUmowy);
+
+                entity.ToTable("umowa");
+
+                entity.Property(e => e.NrUmowy)
+                    .HasColumnName("nr_umowy")
+                    .HasMaxLength(9)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.DataObowiazywaniaDo)
+                    .HasColumnName("data_obowiazywania_do")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.DataObowiazywaniaOd)
+                    .HasColumnName("data_obowiazywania_od")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.DataZawarcia)
+                    .HasColumnName("data_zawarcia")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.DeklarowanaIloscM3).HasColumnName("deklarowana_ilosc_m3");
+
+                entity.Property(e => e.GranicaOdpowiedzialnosciSciekiId).HasColumnName("granica_odpowiedzialnosci_scieki_id");
+
+                entity.Property(e => e.GranicaOdpowiedzialnosciWodaId).HasColumnName("granica_odpowiedzialnosci_woda_id");
+
+                entity.Property(e => e.KlientIdKlienta).HasColumnName("klient_id_klienta");
+
+                entity.Property(e => e.LokalizacjaUmowy)
+                    .IsRequired()
+                    .HasColumnName("lokalizacja_umowy")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.ObiektId).HasColumnName("obiekt_id");
+
+                entity.Property(e => e.TypUmowyId).HasColumnName("typ_umowy_id");
+
+                entity.Property(e => e.TytulPrawnyId).HasColumnName("tytul_prawny_id");
+
+                entity.Property(e => e.Uwagi)
+                    .IsRequired()
+                    .HasColumnName("uwagi")
+                    .HasMaxLength(200);
+
+                entity.HasOne(d => d.GranicaOdpowiedzialnosciScieki)
+                    .WithMany(p => p.UmowaGranicaOdpowiedzialnosciScieki)
+                    .HasForeignKey(d => d.GranicaOdpowiedzialnosciSciekiId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("umowa_granica_odpowiedzialnosci_scieki");
+
+                entity.HasOne(d => d.GranicaOdpowiedzialnosciWoda)
+                    .WithMany(p => p.UmowaGranicaOdpowiedzialnosciWoda)
+                    .HasForeignKey(d => d.GranicaOdpowiedzialnosciWodaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("umowa_granica_odpowiedzialnosci_woda");
+
+                entity.HasOne(d => d.KlientIdKlientaNavigation)
+                    .WithMany(p => p.Umowa)
+                    .HasForeignKey(d => d.KlientIdKlienta)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("umowa_klient");
+
+                entity.HasOne(d => d.Obiekt)
+                    .WithMany(p => p.Umowa)
+                    .HasForeignKey(d => d.ObiektId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("umowa_obiekt");
+
+                entity.HasOne(d => d.TypUmowy)
+                    .WithMany(p => p.Umowa)
+                    .HasForeignKey(d => d.TypUmowyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("umowa_typ_umowy");
+
+                entity.HasOne(d => d.TytulPrawny)
+                    .WithMany(p => p.Umowa)
+                    .HasForeignKey(d => d.TytulPrawnyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("umowa_tytul_prawny");
+            });
         }
 
         public DbSet<Waterworks.Models.View.PriceList.SubscriptionPriceViewModel> SubscriptionPriceViewModel { get; set; }
@@ -637,6 +775,14 @@ namespace Waterworks.Data
         public DbSet<Waterworks.Models.View.Object.ObjectInListViewModel> ObjectInListViewModel { get; set; }
 
         public DbSet<Waterworks.Models.View.PriceList.PriceViewModel> PriceViewModel { get; set; }
+
+        public DbSet<Waterworks.Models.View.WaterMeter.WaterMeterViewModel> WaterMeterViewModel { get; set; }
+
+        public DbSet<Waterworks.Models.View.Contract.ContractTypeViewModel> ContractTypeViewModel { get; set; }
+
+        public DbSet<Waterworks.Models.View.Contract.LiabilityLimitViewModel> LiabilityLimitViewModel { get; set; }
+
+        public DbSet<Waterworks.Models.View.Contract.LegalTitleViewModel> LegalTitleViewModel { get; set; }
 
     }
 }

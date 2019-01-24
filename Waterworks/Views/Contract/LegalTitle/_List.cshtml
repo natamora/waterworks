@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Waterworks.Models.View.Contract.LegalTitleViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nazwa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nazwa)
+                </td>
+                <td>
+                    <a asp-controller="ContractAdmin" asp-action="LegalTitleDelete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="modal-placeholder"></div>
+<button type="button" class="btn btn-primary"
+        data-toggle="ajax-modal" data-target="#attach-watermeter2"
+        data-url="@Url.Action("LegalTitleCreate","ContractAdmin")">
+    Utwórz nowy
+</button>
+<script src="~/js/modal.js"></script>

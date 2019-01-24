@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Waterworks.Models.View.Contract.BasicContractViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NrUmowy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataZawarcia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataObowiazywaniaOd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataObowiazywaniaDo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypUmowy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uwagi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdObiektu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NrUmowy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataZawarcia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataObowiazywaniaOd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataObowiazywaniaDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypUmowy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uwagi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdObiektu)
+            </td>
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.NrUmowy })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

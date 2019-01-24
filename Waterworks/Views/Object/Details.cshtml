@@ -56,15 +56,15 @@
             </dd>
         </dl>
         <hr />
-        <div class="row"> <h5>Wodomierze</h5> </div>
-        <div class="row"> <h5>Klasyfikatory</h5> </div>
-        <div class="row">
-            <h5>Akcje</h5>
+        <a class="btn btn-primary" asp-action="AdvancedDetails" asp-route-id="5" role="button">Szczegóły</a>
+        <a class="btn btn-primary" asp-action="AdvancedDetails" asp-route-id="5" role="button">Podepnij wodomierz</a>
+        <div class="row">  </div>
+        @*<div class="row">
             <a class="btn btn-primary" href="#" role="button">Podepnij wodomierz</a>
             <a class="btn btn-primary" href="#" role="button">Dodaj kontrahenta</a>
             <a class="btn btn-primary" href="#" role="button">Zmień formułę rozliczeń</a>
             <a class="btn btn-primary" href="#" role="button">Dodaj klasyfikatory</a>
-        </div>
+        </div>*@
     </div>
 
 </div>
@@ -72,4 +72,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   @* $('#water_list').load('@Url.Action("List", "WaterMeter", new { id = 5 })');*@
+
 }

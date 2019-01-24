@@ -22,5 +22,6 @@ namespace Waterworks.Models.Db.Waterworks
         public ICollection<DaneKlienta> DaneKlienta { get; set; }
         public ICollection<IdentyfikatorPodatkowy> IdentyfikatorPodatkowy { get; set; }
         public ICollection<Obiekt> Obiekt { get; set; }
+        public ICollection<Umowa> Umowa { get; set; }
     }
 }

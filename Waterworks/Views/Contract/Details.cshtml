@@ -1,0 +1,63 @@
+﻿@model Waterworks.Models.View.Contract.ContractViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Szczegóły umowy</h2>
+<br />
+<table class="table">
+    <tbody>
+
+        <tr>
+            <td class="text-primary"><i class="fa fa-user"></i> @Html.DisplayNameFor(model => model.NrUmowy)</td>
+            <td>@Html.DisplayFor(model => model.NrUmowy)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-list-ol"></i> @Html.DisplayNameFor(model => model.DataZawarcia)</td>
+            <td>@Html.DisplayFor(model => model.DataZawarcia)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-book"></i> @Html.DisplayNameFor(model => model.DataObowiazywaniaOd)</td>
+            <td>@Html.DisplayFor(model => model.DataObowiazywaniaOd)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.DataObowiazywaniaDo)</td>
+            <td>@Html.DisplayFor(model => model.DataObowiazywaniaDo)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.DeklarowanaIloscM3)</td>
+            <td>@Html.DisplayFor(model => model.DeklarowanaIloscM3)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.TypUmowy)</td>
+            <td>@Html.DisplayFor(model => model.TypUmowy)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.TytulPrawny)</td>
+            <td>@Html.DisplayFor(model => model.TytulPrawny)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.GranicaOdpowiedzialnosciWoda)</td>
+            <td>@Html.DisplayFor(model => model.GranicaOdpowiedzialnosciWoda)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.GranicaOdpowiedzialnosciScieki)</td>
+            <td>@Html.DisplayFor(model => model.GranicaOdpowiedzialnosciScieki)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.IdKlienta)</td>
+            <td>@Html.DisplayFor(model => model.IdKlienta)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-calendar"></i> @Html.DisplayNameFor(model => model.IdObiektu)</td>
+            <td>@Html.DisplayFor(model => model.IdObiektu)</td>
+        </tr>
+        <tr>
+            <td class="text-primary"><i class="fa fa-university"></i> @Html.DisplayNameFor(model => model.Uwagi)</td>
+            <td>
+                @Html.DisplayFor(model => model.Uwagi)
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -42,14 +42,7 @@ namespace Waterworks
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI()
             .AddDefaultTokenProviders();
-            //services.AddEntityFrameworkNpgsql()
-            //     .AddDbContext<wodociagiContext>(options
-            //     => options.UseNpgsql("Host=waterworks.postgres.database.azure.com;Database=wodociagi;Username=natamora@waterworks;Password=postgres",
-            //         o => o.UseNetTopologySuite()));
 
-            //services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;

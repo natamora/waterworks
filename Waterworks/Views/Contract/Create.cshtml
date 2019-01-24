@@ -1,0 +1,143 @@
+﻿@model Waterworks.Models.View.Contract.CreateContractViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Dodaj umowę</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="NrUmowy" class="control-label"></label>
+                    <input asp-for="NrUmowy" class="form-control" readonly />
+                    <span asp-validation-for="NrUmowy" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="TytulPrawnyId" class="control-label"></label>
+                    @*<input asp-for="TytulPrawnyId" class="form-control" />*@
+                    <select class="form-control" asp-for="TytulPrawnyId" id="exampleFormControlSelect1">
+                        @foreach (var type in Model.TytulyPrawne)
+                        {
+                            <option value="@type.Id">@type.Nazwa</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TytulPrawnyId" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label asp-for="DataZawarcia" class="control-label"></label>
+                    <input asp-for="DataZawarcia" class="form-control" />
+                    <span asp-validation-for="DataZawarcia" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-md-5">
+                    <label asp-for="TypUmowyId" class="control-label"></label>
+                    @*<input asp-for="TypUmowyId" class="form-control" />*@
+                    <select class="form-control" asp-for="TypUmowyId" id="exampleFormControlSelect1">
+                        @foreach (var type in Model.TypyUmow)
+                        {
+                            <option value="@type.Id">@type.Typ</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TypUmowyId" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label asp-for="DataObowiazywaniaOd" class="control-label"></label>
+                    <input asp-for="DataObowiazywaniaOd" class="form-control" />
+                    <span asp-validation-for="DataObowiazywaniaOd" class="text-danger"></span>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label asp-for="DataObowiazywaniaDo" class="control-label"></label>
+                    <input asp-for="DataObowiazywaniaDo" class="form-control" />
+                    <span asp-validation-for="DataObowiazywaniaDo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label asp-for="GranicaOdpowiedzialnosciWodaId" class="control-label"></label>
+                    @*<input asp-for="GranicaOdpowiedzialnosciWodaId" class="form-control" />*@
+                    <select class="form-control" asp-for="GranicaOdpowiedzialnosciWodaId" id="exampleFormControlSelect1">
+                        @foreach (var type in Model.GraniceOdpowiedzialnosciWoda)
+                        {
+                            <option value="@type.Id">@type.Nazwa</option>
+                        }
+                    </select>
+                    <span asp-validation-for="GranicaOdpowiedzialnosciWodaId" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="GranicaOdpowiedzialnosciSciekiId" class="control-label"></label>
+                    @*<input asp-for="GranicaOdpowiedzialnosciSciekiId" class="form-control" />*@
+                    <select class="form-control" asp-for="GranicaOdpowiedzialnosciSciekiId" id="exampleFormControlSelect1">
+                        @foreach (var type in Model.GraniceOdpowiedzialnosciScieki)
+                        {
+                            <option value="@type.Id">@type.Nazwa</option>
+                        }
+                    </select>
+                    <span asp-validation-for="GranicaOdpowiedzialnosciSciekiId" class="text-danger"></span>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-2">
+                    <label asp-for="IdObiektu" class="control-label"></label>
+                    @*<input asp-for="IdObiektu" class="form-control" />*@
+                    <select class="form-control" asp-for="IdObiektu" id="exampleFormControlSelect1">
+                        @foreach (var type in Model.Obiekty)
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IdObiektu" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label asp-for="DeklarowanaIloscM3" class="control-label"></label>
+                    <input asp-for="DeklarowanaIloscM3" class="form-control" />
+                    <span asp-validation-for="DeklarowanaIloscM3" class="text-danger"></span>
+                </div>
+                
+            </div>
+            @*<div class="form-group">
+            <label asp-for="LokalizacjaUmowy" class="control-label"></label>
+            <input asp-for="LokalizacjaUmowy" class="form-control" />
+            <span asp-validation-for="LokalizacjaUmowy" class="text-danger"></span>
+        </div>*@
+
+
+
+            <div class="form-group">
+                @*<label asp-for="IdKlienta" class="control-label"></label>*@
+                <input asp-for="IdKlienta" value="@Model.IdKlienta" class="form-control hidden" />
+                @*<span asp-validation-for="IdKlienta" class="text-danger"></span>*@
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label asp-for="Uwagi" class="control-label"></label>
+                    <textarea asp-for="Uwagi" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Uwagi" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Utwórz" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
