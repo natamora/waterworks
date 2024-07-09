@@ -1,6 +1,9 @@
 ## Wodociągi
 Program powstał na potrzeby pracy inżynierskiej „GIS w wodociągach. Aplikacja do zarządzania wodomierzami”, zrealizowanej na Akademii Górniczo-Hutniczej w Krakowie pod opieką dr inż. Michała Lupy.
 
+Celem pracy było stworzenie aplikacji WebGIS dla przedsiębiorstw wodociągowych umożliwiający zarządzanie bazą klientów oraz podgląd danych teleadresowych.
+Głównym elementem aplikacji jest podgląd lokalizacji obiektów na mapie oraz podgląd znajdujących się w nich wodomierzy.
+
 ## Technologie
 * ASP.NET Core 2.1
 * OpenLayers, OSM
