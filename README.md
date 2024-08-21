@@ -1,15 +1,20 @@
-![Strona główna](https://github.com/natamora/natamora/blob/main/images/waterworks/mainPage.png)
-## Wodociągi
-Program powstał na potrzeby pracy inżynierskiej „GIS w wodociągach. Aplikacja do zarządzania wodomierzami”, zrealizowanej na Akademii Górniczo-Hutniczej w Krakowie pod opieką dr inż. Michała Lupy.
+# Wodociągi
 
-Celem pracy było stworzenie aplikacji WebGIS dla przedsiębiorstw wodociągowych umożliwiający zarządzanie bazą klientów oraz podgląd danych teleadresowych.
+![Strona główna](https://github.com/natamora/natamora/blob/main/images/waterworks/mainPage.png)
+
+## Opis projektu
+
+Program powstał na potrzeby pracy inżynierskiej „GIS w wodociągach. Aplikacja do zarządzania wodomierzami”, zrealizowanej na Akademii Górniczo-Hutniczej w Krakowie pod opieką dr inż. Michała Lupy. 
+
+Celem pracy było stworzenie aplikacji WebGIS dla przedsiębiorstw wodociągowych umożliwiającej zarządzanie bazą klientów oraz podgląd danych teleadresowych. 
 Głównym elementem aplikacji jest podgląd lokalizacji obiektów na mapie oraz podgląd znajdujących się w nich wodomierzy.
 
 ## Technologie
-* ASP.NET Core 2.1
-* OpenLayers, OSM
-* PostgreSQL, PostGIS
-* Bootstrap, JQuery
+
+* **ASP.NET Core 2.1**
+* **OpenLayers, OSM**
+* **PostgreSQL, PostGIS**
+* **Bootstrap, JQuery**
 
 ## Założenia aplikacji
 * Wyświetlanie budynków oraz podstawowych informacji o nich na mapie
@@ -23,32 +28,27 @@ Głównym elementem aplikacji jest podgląd lokalizacji obiektów na mapie oraz 
 Ważnym elementem pracy było zaprojektowanie bazy danych:
 
 ![Baza danych zaprojektowana na potrzeby projektu](https://github.com/natamora/natamora/blob/main/images/waterworks/baza.png)
+## Przykładowe Rezultaty
 
-## Rezultaty
-Wyświetlanie oraz grupowanie budynków na mapie. Po dwukrotnym kliknięciu na obszar mapy możliwość stworzenia nowego obiektu. Po kliknięciu na obiekt możliwość podglądu podstawowych informacji oraz zamontowania wodomierza.
+* **Wyświetlanie oraz grupowanie obiektów na mapie**: Możliwość przeglądania budynków na mapie oraz tworzenia nowych obiektów poprzez dwukrotne kliknięcie. Możliwość podglądu podstawowych informacji o obiektach i zamontowania wodomierzy.
 
-![Mapa obiektów](https://github.com/natamora/natamora/blob/main/images/waterworks/mapa.png)
+  ![Mapa obiektów](https://github.com/natamora/natamora/blob/main/images/waterworks/mapa.png)
 
-Podgląd wszystkich kartotek wodomierzy, kontrahentów, obiektów itp.
+* **Kartoteka wodomierzy**: Ekran kartoteki wodomierzy umożliwia przeglądanie wszystkich wodomierzy zarejestrowanych w systemie. Oferuje podobny widok dla kartotek kontrahentów oraz obiektów, co pozwala na spójne zarządzanie różnymi typami danych w aplikacji.
 
-![Kartoteka wodomierzy](https://github.com/natamora/natamora/blob/main/images/waterworks/KartotekaWodomierzy.png)
+  ![Kartoteka wodomierzy](https://github.com/natamora/natamora/blob/main/images/waterworks/KartotekaWodomierzy.png)
 
-Możliwość zamontowania i wymiany wodomierzy w kartotece obiektu.
+* **Zarządzanie wodomierzami**: Możliwość zamontowania i wymiany wodomierzy w kartotece obiektu. 
 
-![Kartoteka wodomierzy](https://github.com/natamora/natamora/blob/main/images/waterworks/WymienWodomierz2.png)
+  ![Wymiana wodomierza](https://github.com/natamora/natamora/blob/main/images/waterworks/WymienWodomierz2.png)
 
-Możliwość podglądu informacji o kliencie, a także o związanych z nim obiektach i umowach.
+* **Podgląd informacji o klientach**: Wyświetlanie danych o klientach oraz związanych z nimi obiektach i umowach. Możliwość przeglądania i edytowania szczegółów.
 
-![Kartoteka wodomierzy](https://github.com/natamora/natamora/blob/main/images/waterworks/klient.png)
+  ![Kartoteka klienta](https://github.com/natamora/natamora/blob/main/images/waterworks/klient.png)
 
-Dodawanie nowych typów umów.
+* **Zarządzanie umowami**: Dodawanie nowych umów oraz zarządzanie już istniejącymi.
 
-![Kartoteka wodomierzy](https://github.com/natamora/natamora/blob/main/images/waterworks/umowy.png)
-
-
-
-
-
+  ![Zarządzanie umowami](https://github.com/natamora/natamora/blob/main/images/waterworks/umowy.png)
 
 ## 
 All rights reserved
