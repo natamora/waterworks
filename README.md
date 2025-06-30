@@ -1,55 +1,58 @@
-# Wodociągi
+# Waterworks
 
-![Strona główna](https://github.com/natamora/natamora/blob/main/images/waterworks/mainPage.png)
+![Homepage](https://github.com/natamora/natamora/blob/main/images/waterworks/mainPage.png)
 
-## Opis projektu
+## Project Description
 
-Program powstał na potrzeby pracy inżynierskiej „GIS w wodociągach. Aplikacja do zarządzania wodomierzami”, zrealizowanej na Akademii Górniczo-Hutniczej w Krakowie pod opieką dr inż. Michała Lupy. 
+This program was developed for the engineering thesis *“GIS in waterworks. Application for water metres management.”*, completed at AGH University of Science and Technology in Kraków under the supervision of Dr Eng. Michał Lupa.
 
-Celem pracy było stworzenie aplikacji WebGIS dla przedsiębiorstw wodociągowych umożliwiającej zarządzanie bazą klientów oraz podgląd danych teleadresowych. 
-Głównym elementem aplikacji jest podgląd lokalizacji obiektów na mapie oraz podgląd znajdujących się w nich wodomierzy.
+The goal of the project was to develop a WebGIS application for water utility companies that allows managing a customer database and viewing contact information. The core functionality includes displaying facility locations on a map and showing the water meters associated with those facilities.
 
-## Technologie
+## Technologies
 
-* **ASP.NET Core 2.1**
-* **OpenLayers, OSM**
-* **PostgreSQL, PostGIS**
-* **Bootstrap, JQuery**
+* **ASP.NET Core 2.1**  
+* **OpenLayers, OpenStreetMap (OSM)**  
+* **PostgreSQL, PostGIS**  
+* **Bootstrap, jQuery**
 
-## Założenia aplikacji
-* Wyświetlanie budynków oraz podstawowych informacji o nich na mapie
-* Wyszukiwanie współrzędnych na podstawie adresu
-* Tworzenie nowych obiektów po dwukrotnym kliknięciu na obszar mapy
-* Tworzenie nowych kontrahentów, podgląd danych teleadresowych oraz obiektów do nich należących
-* Wyświetlanie wodomierzy znajdujących się w systemie. Możliwość zamontowania, odpięcia lub wymiany wodomierza w budynku
-* Podgląd informacji o zawartych umowach oraz dodawanie nowych
-  
-## Baza danych
-Ważnym elementem pracy było zaprojektowanie bazy danych:
+## Application Features
 
-![Baza danych zaprojektowana na potrzeby projektu](https://github.com/natamora/natamora/blob/main/images/waterworks/baza.png)
-## Przykładowe Rezultaty
+* Displaying buildings and basic information about them on the map  
+* Searching coordinates based on addresses  
+* Creating new objects by double-clicking on the map area  
+* Adding new clients, viewing their contact details, and associated objects  
+* Displaying water meters registered in the system, with options to install, detach, or replace watermeters in buildings  
+* Viewing contract information and adding new contracts  
 
-* **Wyświetlanie oraz grupowanie obiektów na mapie**: Możliwość przeglądania budynków na mapie oraz tworzenia nowych obiektów poprzez dwukrotne kliknięcie. Możliwość podglądu podstawowych informacji o obiektach i zamontowania wodomierzy.
+## Database
 
-  ![Mapa obiektów](https://github.com/natamora/natamora/blob/main/images/waterworks/mapa.png)
+An important part of the project was designing the database schema:
 
-* **Kartoteka wodomierzy**: Ekran kartoteki wodomierzy umożliwia przeglądanie wszystkich wodomierzy zarejestrowanych w systemie. Oferuje podobny widok dla kartotek kontrahentów oraz obiektów, co pozwala na spójne zarządzanie różnymi typami danych w aplikacji.
+![Database schema designed for the project](https://github.com/natamora/natamora/blob/main/images/waterworks/baza.png)
 
-  ![Kartoteka wodomierzy](https://github.com/natamora/natamora/blob/main/images/waterworks/KartotekaWodomierzy.png)
+## Sample Results
 
-* **Zarządzanie wodomierzami**: Możliwość zamontowania i wymiany wodomierzy w kartotece obiektu. 
+* **Displaying and grouping objects on the map**: Enables browsing buildings on the map and creating new objects by double-clicking. Provides basic information preview about objects and the ability to install water meters.
 
-  ![Wymiana wodomierza](https://github.com/natamora/natamora/blob/main/images/waterworks/WymienWodomierz2.png)
+  ![Map of objects](https://github.com/natamora/natamora/blob/main/images/waterworks/mapa.png)
 
-* **Podgląd informacji o klientach**: Wyświetlanie danych o klientach oraz związanych z nimi obiektach i umowach. Możliwość przeglądania i edytowania szczegółów.
+* **Water meter registry**: The water meter registry screen allows viewing all meters registered in the system. Similar views are available for client and object registries, enabling consistent data management across different entities.
 
-  ![Kartoteka klienta](https://github.com/natamora/natamora/blob/main/images/waterworks/klient.png)
+  ![Water meter registry](https://github.com/natamora/natamora/blob/main/images/waterworks/KartotekaWodomierzy.png)
 
-* **Zarządzanie umowami**: Dodawanie nowych umów oraz zarządzanie już istniejącymi.
+* **Water meter management**: Ability to install and replace water meters within the object registry.
 
-  ![Zarządzanie umowami](https://github.com/natamora/natamora/blob/main/images/waterworks/umowy.png)
+  ![Water meter replacement](https://github.com/natamora/natamora/blob/main/images/waterworks/WymienWodomierz2.png)
 
-## 
-All rights reserved
+* **Client information overview**: Displays client data along with related objects and contracts, with options to view and edit details.
+
+  ![Client registry](https://github.com/natamora/natamora/blob/main/images/waterworks/klient.png)
+
+* **Contract management**: Adding new contracts and managing existing ones.
+
+  ![Contract management](https://github.com/natamora/natamora/blob/main/images/waterworks/umowy.png)
+
+##
+
+All rights reserved  
 Copyright &copy; Katarzyna Morawska 2019
